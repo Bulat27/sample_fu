@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include <curand_kernel.h>
 
 __global__ void MCTS_Init_GPU(double* Edge_Heatmap_G, int *Current_Instance_Best_Distance_G, double* Weight_G, int* Chosen_Times_G, int* Total_Simulation_Times_G, int Virtual_City_Num, int Total_thread_num)
 {
