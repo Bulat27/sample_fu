@@ -178,7 +178,7 @@ def beamsearch_tour_nodes(y_pred_edges, beam_size, batch_size, num_nodes, dtypeF
     trans_probs = y.gather(1, beamsearch.get_current_state())
     for step in range(num_nodes - 1):
         beamsearch.advance(trans_probs)
-        trans_probs = y.gather(1, beamsearch.get_current_state())
+        trans_probs = y.gather(1, beamsearch.get_current_state().long())
     # Find TSP tour with highest probability among beam_size candidates
     ends = torch.zeros(batch_size, 1).type(dtypeLong)
     return beamsearch.get_hypothesis(ends)
@@ -220,7 +220,7 @@ def beamsearch_tour_nodes_shortest(y_pred_edges, x_edges_values, beam_size, batc
         y[y == 0] = -1e-20  # Set 0s (i.e. log(1)s) to very small negative number
     # Perform beamsearch
     beamsearch = Beamsearch(beam_size, batch_size, num_nodes, dtypeFloat, dtypeLong, probs_type, random_start)
-    trans_probs = y.gather(1, beamsearch.get_current_state())
+    trans_probs = y.gather(1, beamsearch.get_current_state().long())
     for step in range(num_nodes - 1):
         beamsearch.advance(trans_probs)
         trans_probs = y.gather(1, beamsearch.get_current_state())
