@@ -131,5 +131,5 @@ class Beamsearch(object):
         hyp = -1 * torch.ones(self.batch_size, self.num_nodes).type(self.dtypeLong)
         for j in range(len(self.prev_Ks) - 1, -2, -1):
             hyp[:, j + 1] = self.next_nodes[j + 1].gather(1, k.long()).view(1, self.batch_size)
-            k = self.prev_Ks[j].gather(1, k)
+            k = self.prev_Ks[j].gather(1, k.long())
         return hyp
