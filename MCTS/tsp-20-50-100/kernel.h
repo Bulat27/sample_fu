@@ -20,7 +20,8 @@
 
 
 #include <helper_functions.h>
-#include <device_functions.h>
+// #include <device_functions.h>
+#include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 
 using namespace std;
